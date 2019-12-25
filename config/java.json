@@ -1,3 +1,4 @@
 {
-  /*"sourceFolder": "target/generated"*/
+  "groupId" : "social.api",
+  "artifactId" : "task"
 }

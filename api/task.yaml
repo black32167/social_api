@@ -10,7 +10,7 @@ paths:
   /tasks:
     get:
       summary: Returns a list of tasks.
-      description:Returns task list.
+      description: Returns task list.
       tags:
         - task
       responses:

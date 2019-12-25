@@ -2,7 +2,7 @@
 
 PROTO_SUBDIR="src/main/proto"
 
-GEN_TARGET="$(pwd)/target"
+GEN_TARGET="$(pwd)/generated-api"
 SCRIPT_DIR="${BASH_SOURCE%/*}"
 
 generate() {
@@ -24,6 +24,14 @@ generate() {
              ${PARAMS}
          #   -Dapis \
 
+    if [[ ${generator} == "java" ]]; then
+        mvn_install "${GEN_TARGET}/${api}/${generator}"
+    fi
+}
+
+mvn_install() {
+    local workdir="${1}"
+    (cd "${workdir}" && mvn install)
 }
 
 generateApi() {

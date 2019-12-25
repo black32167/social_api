@@ -1,0 +1,17 @@
+schemas:
+  Tasks:
+    type: object
+    properties:
+      tasks:
+        type: array
+        items:
+          $ref: '#/schemas/Task'
+  Task:
+    type: object
+    properties:
+      title:
+        type: string
+      creator:
+        type: string
+      assignee:
+        type: string

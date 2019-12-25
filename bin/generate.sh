@@ -21,16 +21,17 @@ generate() {
             -l "${generator}" \
             -i "${SWAGGER_TAK_SPEC}" \
             -o "${GEN_TARGET}/${api}/${generator}" \
+             ${PARAMS}
          #   -Dapis \
-            ${PARAMS}
+
 }
 
 generateApi() {
     local api="${1}"
     rm -rf "${GEN_TARGET}"
     generate "${api}" java
-    generate "${api}" python
-    generate "${api}" jaxrs-jersey
+    #generate "${api}" python
+    #generate "${api}" jaxrs-jersey
 }
 
 

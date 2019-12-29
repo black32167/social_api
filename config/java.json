@@ -1,4 +1,6 @@
 {
-  "groupId" : "social.api",
-  "artifactId" : "task"
+  "groupId" : "social.api.stub",
+  "artifactId" : "task-client",
+  "apiPackage" : "social.api.stub.task.client",
+  "modelPackage" : "social.api.stub.task.model"
 }

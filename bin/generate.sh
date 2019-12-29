@@ -21,10 +21,10 @@ generate() {
             -l "${generator}" \
             -i "${SWAGGER_TAK_SPEC}" \
             -o "${GEN_TARGET}/${api}/${generator}" \
-             ${PARAMS}
-         #   -Dapis \
+             ${PARAMS} \
+            -Dapis,models,supportingFiles
 
-    if [[ ${generator} == "java" ]]; then
+    if [ -f "${GEN_TARGET}/${api}/${generator}/pom.xml" ]; then
         mvn_install "${GEN_TARGET}/${api}/${generator}"
     fi
 }
@@ -37,9 +37,9 @@ mvn_install() {
 generateApi() {
     local api="${1}"
     rm -rf "${GEN_TARGET}"
-    generate "${api}" java
+    generate "${api}" java api
     #generate "${api}" python
-    #generate "${api}" jaxrs-jersey
+    generate "${api}" jaxrs-di
 }
 
 

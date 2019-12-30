@@ -1,16 +1,14 @@
 openapi: 3.0.0
 info:
   title: Task API
-  description: Optional multiline or single-line description in [CommonMark](http://commonmark.org/help/) or HTML.
-  version: 0.1.9
+  version: 0.0.1
 servers:
   - url: http://task.example.com/v1
     description: Task tracker server
 paths:
-  /tasks:
+  /task:
     get:
       summary: Returns a list of tasks.
-      description: Returns task list.
       tags:
         - task
       responses:
@@ -20,12 +18,35 @@ paths:
             application/json:
               schema:
                 $ref: 'model.yaml#/schemas/Tasks'
-  /task:
-    get:
-      summary: Returns a task.
-      description: Returns an individual task.
+    post:
+      summary: Creates task
       tags:
         - task
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: 'model.yaml#/schemas/Task'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: 'model.yaml#/schemas/Task'
+  /task/{taskId}:
+    get:
+      summary: Returns a task.
+      tags:
+        - task
+      parameters:
+        - in: path
+          name: taskId
+          schema:
+            type: string
+          required: true
+          description: task identifier
       responses:
         '200':    # status code
           description: task

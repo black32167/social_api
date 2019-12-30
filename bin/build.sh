@@ -4,6 +4,7 @@ PROTO_SUBDIR="src/main/proto"
 
 GEN_TARGET="$(pwd)/generated-api"
 SCRIPT_DIR="${BASH_SOURCE%/*}"
+SERVER_MOCKS_MODULE="server-mocks"
 
 generate() {
     local api="${1}"
@@ -42,5 +43,27 @@ generateApi() {
     generate "${api}" jaxrs-di
 }
 
+generateApis() {
+    generateApi "task"
+}
 
-generateApi "task"
+buildMockServer() {
+    (cd "${SERVER_MOCKS_MODULE}" && mvn clean install -DskipTests)
+}
+
+CMD="${1}"
+case "${CMD}" in
+    apis)
+        generateApis
+        ;;
+    mock-server)
+        buildMockServer
+        ;;
+    all)
+        generateApis
+        buildMockServer
+        ;;
+    *)
+        echo "Usage:"
+        echo "${0} {apis|mock-server|all}"
+esac

@@ -5,6 +5,7 @@ import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory
 import org.glassfish.jersey.jackson.JacksonFeature
 import org.glassfish.jersey.logging.LoggingFeature
 import org.glassfish.jersey.server.ResourceConfig
+import org.slf4j.bridge.SLF4JBridgeHandler
 import social.api.test.server.stub.TaskApiServiceStub
 import java.io.IOException
 import java.net.URI
@@ -12,6 +13,13 @@ import java.util.logging.Level
 import java.util.logging.Logger
 
 class MocksServer(val baseUri: String) {
+    companion object {
+        init {
+            SLF4JBridgeHandler.removeHandlersForRootLogger();
+            SLF4JBridgeHandler.install();
+            Logger.getLogger("").setLevel(Level.FINEST);
+        }
+    }
     private var httpServer: HttpServer? = null
 
     @Throws(IOException::class)

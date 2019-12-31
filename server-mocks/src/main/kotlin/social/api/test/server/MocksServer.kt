@@ -9,15 +9,21 @@ import org.slf4j.bridge.SLF4JBridgeHandler
 import social.api.test.server.stub.TaskApiServiceStub
 import java.io.IOException
 import java.net.URI
+import java.util.logging.ConsoleHandler
 import java.util.logging.Level
 import java.util.logging.Logger
+
 
 class MocksServer(val baseUri: String) {
     companion object {
         init {
             SLF4JBridgeHandler.removeHandlersForRootLogger();
             SLF4JBridgeHandler.install();
-            Logger.getLogger("").setLevel(Level.FINEST);
+            val l = Logger.getLogger("")
+            l.setLevel(Level.FINEST);
+            val ch = ConsoleHandler()
+            ch.level = Level.ALL
+            l.addHandler(ch)
         }
     }
     private var httpServer: HttpServer? = null
@@ -29,7 +35,7 @@ class MocksServer(val baseUri: String) {
         config.register(JacksonFeature::class.java)
         config.registerInstances(*createApiResources())
         config.register(LoggingFeature(Logger.getLogger(LoggingFeature.DEFAULT_LOGGER_NAME),
-                Level.INFO, LoggingFeature.Verbosity.PAYLOAD_ANY, 10000))
+                Level.FINE, LoggingFeature.Verbosity.PAYLOAD_ANY, 10000))
 
         httpServer = GrizzlyHttpServerFactory.createHttpServer(URI.create(baseUri), config, false)
         httpServer!!.start()

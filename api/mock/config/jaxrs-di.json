@@ -1,0 +1,6 @@
+{
+  "groupId" : "social.api.stub",
+  "artifactId" : "mock-jaxrs-server",
+  "apiPackage" : "social.api.stub.mock.server",
+  "modelPackage" : "social.api.stub.mock.model"
+}

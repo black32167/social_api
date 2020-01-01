@@ -1,0 +1,8 @@
+{
+  "groupId" : "social.api.stub",
+  "artifactId" : "mock-client",
+  "apiPackage" : "social.api.stub.mock.client",
+  "modelPackage" : "social.api.stub.mock.model",
+  "java8": true,
+  "library": "jersey2"
+}

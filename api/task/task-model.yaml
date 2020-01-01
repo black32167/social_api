@@ -1,0 +1,31 @@
+schemas:
+  Tasks:
+    type: object
+    properties:
+      tasks:
+        type: array
+        items:
+          $ref: '#/schemas/Task'
+    example:
+      items:
+        - title: Build the spaceship
+          creator: John
+          assignee: Jane
+        - title: Colonize Mars
+          creator: Jane
+          assignee: John
+  Task:
+    type: object
+    properties:
+      id:
+        type: string
+      title:
+        type: string
+      creator:
+        type: string
+      assignee:
+        type: string
+    example:
+      title: Build the spaceship
+      creator: John
+      assignee: Jane

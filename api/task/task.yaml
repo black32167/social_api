@@ -17,7 +17,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: 'model.yaml#/schemas/Tasks'
+                $ref: 'task-model.yaml#/schemas/Tasks'
     post:
       summary: Creates task
       tags:
@@ -27,14 +27,18 @@ paths:
         content:
           application/json:
             schema:
-              $ref: 'model.yaml#/schemas/Task'
+              $ref: 'task-model.yaml#/schemas/Task'
+            example:
+              title: Build the spaceship1
+              creatoe: John1
+              assignee: Jane1
       responses:
         '201':
           description: Created
           content:
             application/json:
               schema:
-                $ref: 'model.yaml#/schemas/Task'
+                $ref: 'task-model.yaml#/schemas/Task'
   /task/{taskId}:
     get:
       summary: Returns a task.
@@ -53,4 +57,4 @@ paths:
           content:
             application/json:
               schema:
-                $ref: 'model.yaml#/schemas/Task'
+                $ref: 'task-model.yaml#/schemas/Task'

@@ -9,9 +9,8 @@ SERVER_MOCKS_MODULE="server-mocks"
 generate() {
     local api="${1}"
     local generator="${2}"
-
-    local SWAGGER_TAK_SPEC="./api/${api}.yaml"
-    local CONFIG_FILE="./config/${generator}.json"
+    local api_dir="./api/${api}"
+    local CONFIG_FILE="${api_dir}/config/${generator}.json"
 
     PARAMS=""
     if [ -f "${CONFIG_FILE}" ]; then
@@ -20,10 +19,10 @@ generate() {
 
     ${SCRIPT_DIR}/swagger.sh generate \
             -l "${generator}" \
-            -i "${SWAGGER_TAK_SPEC}" \
+            -i "${api_dir}/${api}.yaml" \
             -o "${GEN_TARGET}/${api}/${generator}" \
-             ${PARAMS} \
-            -Dapis,models,supportingFiles
+             ${PARAMS}
+           # -Dapis,models,supportingFiles
 
     if [ -f "${GEN_TARGET}/${api}/${generator}/pom.xml" ]; then
         mvn_install "${GEN_TARGET}/${api}/${generator}"
@@ -37,14 +36,21 @@ mvn_install() {
 
 generateApi() {
     local api="${1}"
-    rm -rf "${GEN_TARGET}"
-    generate "${api}" java api
-    #generate "${api}" python
-    generate "${api}" jaxrs-di
+
+    local impl_types=(
+        "java"
+        "jaxrs-di"
+        "html"
+    )
+    for impl in ${impl_types[@]}; do
+      generate "${api}" "${impl}"
+    done
 }
 
 generateApis() {
+    rm -rf "${GEN_TARGET}"
     generateApi "task"
+    generateApi "mock"
 }
 
 buildMockServer() {

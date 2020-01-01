@@ -1,6 +1,0 @@
-{
-  "groupId" : "social.api.stub",
-  "artifactId" : "task-jaxrs-server",
-  "apiPackage" : "social.api.stub.task.server",
-  "modelPackage" : "social.api.stub.task.model"
-}

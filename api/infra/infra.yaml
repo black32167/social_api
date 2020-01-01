@@ -1,0 +1,12 @@
+openapi: 3.0.0
+info:
+  title: Infrastructure Control API
+  version: 0.0.1
+paths:
+  /restart:
+    post:
+      summary: Restart infrastructure services
+      tags:
+        - infra
+      responses:
+        '204':

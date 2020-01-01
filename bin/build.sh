@@ -50,7 +50,7 @@ generateApi() {
 generateApis() {
     rm -rf "${GEN_TARGET}"
     generateApi "task"
-    generateApi "mock"
+    generateApi "infra"
 }
 
 buildMockServer() {

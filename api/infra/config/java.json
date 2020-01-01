@@ -1,0 +1,8 @@
+{
+  "groupId" : "social.api",
+  "artifactId" : "infra-client",
+  "apiPackage" : "social.api.infra.client",
+  "modelPackage" : "social.api.infra.model",
+  "java8": true,
+  "library": "jersey2"
+}

@@ -62,6 +62,8 @@
             <artifactId>kotlin-stdlib</artifactId>
             <version>${kotlin.version}</version>
         </dependency>
+
+        <!-- Task API artifacts -->
         <dependency>
             <groupId>social.api.stub</groupId>
             <artifactId>task-client</artifactId>
@@ -72,6 +74,19 @@
             <artifactId>task-jaxrs-server</artifactId>
             <version>${social.api.version}</version>
         </dependency>
+
+        <!-- Mock API artifacts -->
+        <dependency>
+            <groupId>social.api.stub</groupId>
+            <artifactId>mock-client</artifactId>
+            <version>${social.api.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>social.api.stub</groupId>
+            <artifactId>mock-jaxrs-server</artifactId>
+            <version>${social.api.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

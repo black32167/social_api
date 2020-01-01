@@ -1,4 +1,4 @@
-package social.api.test.server
+package social.api.mock
 
 import java.io.IOException
 

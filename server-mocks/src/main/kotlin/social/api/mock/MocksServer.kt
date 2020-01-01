@@ -1,4 +1,4 @@
-package social.api.test.server
+package social.api.mock
 
 import org.glassfish.grizzly.http.server.HttpServer
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory
@@ -6,13 +6,13 @@ import org.glassfish.jersey.jackson.JacksonFeature
 import org.glassfish.jersey.logging.LoggingFeature
 import org.glassfish.jersey.server.ResourceConfig
 import org.slf4j.bridge.SLF4JBridgeHandler
-import social.api.test.server.stub.TaskApiServiceStub
+import social.api.mock.control.MockApiServiceImpl
+import social.api.mock.task.TaskApiServiceMock
 import java.io.IOException
 import java.net.URI
 import java.util.logging.ConsoleHandler
 import java.util.logging.Level
 import java.util.logging.Logger
-
 
 class MocksServer(val baseUri: String) {
     companion object {
@@ -48,6 +48,10 @@ class MocksServer(val baseUri: String) {
     }
 
     private fun createApiResources(): Array<Any> {
-        return arrayOf(social.api.stub.task.server.TaskApi(TaskApiServiceStub()))
+        val taskMock = TaskApiServiceMock()
+        return arrayOf(
+                social.api.stub.task.server.TaskApi(taskMock),
+                social.api.stub.mock.server.ResetApi(MockApiServiceImpl(listOf(taskMock)))
+        )
     }
 }

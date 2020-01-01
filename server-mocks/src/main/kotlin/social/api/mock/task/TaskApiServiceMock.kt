@@ -1,5 +1,6 @@
-package social.api.test.server.stub
+package social.api.mock.task
 
+import social.api.mock.ResettableMock
 import social.api.stub.task.model.Task
 import social.api.stub.task.model.Tasks
 import social.api.stub.task.server.TaskApiService
@@ -8,8 +9,12 @@ import java.util.concurrent.ConcurrentHashMap
 import javax.ws.rs.core.Response
 import javax.ws.rs.core.SecurityContext
 
-class TaskApiServiceStub : TaskApiService {
+class TaskApiServiceMock : TaskApiService, ResettableMock {
     private val tasks = ConcurrentHashMap<String, Task>()
+
+    override fun reset() {
+        tasks.clear()
+    }
 
     override fun taskTaskIdGet(taskId: String, securityContext: SecurityContext): Response {
         val task:Task? = tasks[taskId]

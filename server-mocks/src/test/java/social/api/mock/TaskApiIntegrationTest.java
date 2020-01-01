@@ -1,4 +1,4 @@
-package social.api.test.server;
+package social.api.mock;
 
 import org.junit.After;
 import org.junit.Before;

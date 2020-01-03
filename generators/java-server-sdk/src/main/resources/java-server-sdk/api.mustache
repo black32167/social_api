@@ -1,0 +1,11 @@
+package {{package}};
+
+{{#operations}}
+import {{modelPackage}}.*;
+
+public interface {{classname}} {
+    {{#operation}}
+    {{#responses}}{{baseType}}{{/responses}} {{operationId}}({{#allParams}}{{dataType}} {{paramName}}{{/allParams}});
+    {{/operation}}
+}
+{{/operations}}

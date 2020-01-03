@@ -1,0 +1,20 @@
+package {{package}};
+
+{{#models}}
+{{#model}}
+public class {{classname}} {
+    {{#vars}}
+    private {{dataType}} {{baseName}};
+    {{/vars}}
+
+    {{#vars}}
+    public {{dataType}} {{getter}}() {
+        return {{baseName}};
+    }
+    public void {{setter}}({{dataType}} {{baseName}}) {
+        this.{{baseName}} = {{baseName}};
+    }
+    {{/vars}}
+}
+{{/model}}
+{{/models}}

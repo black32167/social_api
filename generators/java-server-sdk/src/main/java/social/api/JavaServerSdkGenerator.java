@@ -16,8 +16,8 @@ import java.util.Map;
 public class JavaServerSdkGenerator extends DefaultCodegen implements CodegenConfig {
 
   // source folder where to write the files
-  protected String sourceFolder = "src";
-  protected String apiVersion = "1.0.0";
+  protected String sourceFolder = "src/main/java";
+  protected String apiVersion = "0.0.1";
 
   /**
    * Configures the type of generator.
@@ -97,9 +97,9 @@ public class JavaServerSdkGenerator extends DefaultCodegen implements CodegenCon
      * as with models, add multiple entries with different extensions for multiple files per
      * class
      */
-    apiTemplateFiles.put(
-      "api.mustache",   // the template to use
-      ".java");       // the extension for each file to write
+    apiTemplateFiles.put("delegate.mustache", "Service.java");
+    apiTemplateFiles.put("resource.mustache", "Resource.java");
+
 
     /**
      * Template Location.  This is the location which templates will be read from.  The generator

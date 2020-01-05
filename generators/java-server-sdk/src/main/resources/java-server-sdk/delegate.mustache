@@ -3,7 +3,7 @@ package {{package}};
 {{#operations}}
 import {{modelPackage}}.*;
 
-public interface {{classname}} {
+public interface {{classname}}Service {
     {{#operation}}
     {{#responses}}{{baseType}}{{/responses}} {{operationId}}({{#allParams}}{{dataType}} {{paramName}}{{/allParams}});
     {{/operation}}

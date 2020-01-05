@@ -1,0 +1,26 @@
+package {{package}};
+
+{{#operations}}
+import {{modelPackage}}.*;
+import javax.ws.rs.*;
+
+@Produces("application/json")
+@Consumes("application/json")
+@Path("")
+public class {{classname}}Resource {
+    private final {{classname}}Service delegate;
+
+    public {{classname}}Resource({{classname}}Service delegate) {
+        this.delegate = delegate;
+    }
+
+    {{#operation}}
+    @Path("{{path}}")
+    @{{httpMethod}}
+    public {{#responses}}{{baseType}}{{/responses}} {{operationId}}({{!
+    }}{{#allParams}}{{>pathParam}}{{dataType}} {{paramName}}{{#hasMore}},{{/hasMore}}{{/allParams}}) {
+        return delegate.{{operationId}}({{#allParams}}{{paramName}}{{#hasMore}},{{/hasMore}}{{/allParams}});
+    }
+    {{/operation}}
+}
+{{/operations}}

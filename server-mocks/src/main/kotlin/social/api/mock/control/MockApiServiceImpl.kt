@@ -1,13 +1,12 @@
 package social.api.mock.control
 
+import social.api.infra.model.RestartedResponse
+import social.api.infra.server.InfraApiService
 import social.api.mock.ResettableMock
-import social.api.stub.mock.server.ResetApiService
-import javax.ws.rs.core.Response
-import javax.ws.rs.core.SecurityContext
 
-class MockApiServiceImpl(val resettableMocks:Collection<ResettableMock>) : ResetApiService {
-    override fun resetPost(p0: SecurityContext?): Response {
+class MockApiServiceImpl(val resettableMocks:Collection<ResettableMock>) : InfraApiService {
+    override fun restart(): RestartedResponse {
         resettableMocks.forEach { it.reset() }
-        return Response.noContent().build()
+        return RestartedResponse();
     }
 }

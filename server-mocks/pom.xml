@@ -10,7 +10,7 @@
 
     <properties>
         <junit.version>4.12</junit.version>
-        <social.api.version>1.0.0</social.api.version>
+        <social.api.version>0.0.1</social.api.version>
         <jersey.version>2.29</jersey.version>
         <kotlin.version>1.3.61</kotlin.version>
         <slf4j.version>1.7.28</slf4j.version>
@@ -42,6 +42,36 @@
         </dependencies>
     </dependencyManagement>
     <dependencies>
+<!--        <dependency>-->
+<!--            <groupId>com.fasterxml.jackson.core</groupId>-->
+<!--            <artifactId>jackson-annotations</artifactId>-->
+<!--            <version>${jackson.version}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>com.fasterxml.jackson.jaxrs</groupId>-->
+<!--            <artifactId>jackson-jaxrs-json-provider</artifactId>-->
+<!--            <version>${jackson.version}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>com.fasterxml.jackson.core</groupId>-->
+<!--            <artifactId>jackson-databind</artifactId>-->
+<!--            <version>${jackson.version}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>com.fasterxml.jackson.core</groupId>-->
+<!--            <artifactId>jackson-core</artifactId>-->
+<!--            <version>${jackson.version}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>com.fasterxml.jackson.datatype</groupId>-->
+<!--            <artifactId>jackson-datatype-jsr310</artifactId>-->
+<!--            <version>${jackson.version}</version>-->
+<!--        </dependency>-->
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-json-jackson</artifactId>
+            <version>${jersey.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
@@ -65,25 +95,25 @@
 
         <!-- Task API artifacts -->
         <dependency>
-            <groupId>social.api.stub</groupId>
+            <groupId>social.api</groupId>
             <artifactId>task-client</artifactId>
             <version>${social.api.version}</version>
         </dependency>
         <dependency>
-            <groupId>social.api.stub</groupId>
-            <artifactId>task-jaxrs-server</artifactId>
+            <groupId>social.api</groupId>
+            <artifactId>task-server</artifactId>
             <version>${social.api.version}</version>
         </dependency>
 
         <!-- Mock API artifacts -->
         <dependency>
-            <groupId>social.api.stub</groupId>
-            <artifactId>mock-client</artifactId>
+            <groupId>social.api</groupId>
+            <artifactId>infra-client</artifactId>
             <version>${social.api.version}</version>
         </dependency>
         <dependency>
-            <groupId>social.api.stub</groupId>
-            <artifactId>mock-jaxrs-server</artifactId>
+            <groupId>social.api</groupId>
+            <artifactId>infra-server</artifactId>
             <version>${social.api.version}</version>
         </dependency>
 
@@ -103,11 +133,7 @@
             <artifactId>hk2</artifactId>
             <version>2.5.0</version>
         </dependency>
-        <dependency>
-            <groupId>org.glassfish.jersey.media</groupId>
-            <artifactId>jersey-media-json-jackson</artifactId>
-            <version>${jersey.version}</version>
-        </dependency>
+
         <dependency>
             <groupId>javax.ws.rs</groupId>
             <artifactId>javax.ws.rs-api</artifactId>

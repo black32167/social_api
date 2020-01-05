@@ -50,8 +50,8 @@ class MocksServer(val baseUri: String) {
     private fun createApiResources(): Array<Any> {
         val taskMock = TaskApiServiceMock()
         return arrayOf(
-                social.api.stub.task.server.TaskApi(taskMock),
-                social.api.stub.mock.server.ResetApi(MockApiServiceImpl(listOf(taskMock)))
+                social.api.task.server.TaskApiResource(taskMock),
+                social.api.infra.server.InfraApiResource(MockApiServiceImpl(listOf(taskMock)))
         )
     }
 }

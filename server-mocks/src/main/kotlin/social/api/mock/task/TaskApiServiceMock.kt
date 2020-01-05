@@ -1,13 +1,12 @@
 package social.api.mock.task
 
 import social.api.mock.ResettableMock
-import social.api.stub.task.model.Task
-import social.api.stub.task.model.Tasks
-import social.api.stub.task.server.TaskApiService
+import social.api.task.model.Task
+import social.api.task.model.Tasks
+import social.api.task.server.TaskApiService
 import java.util.*
 import java.util.concurrent.ConcurrentHashMap
-import javax.ws.rs.core.Response
-import javax.ws.rs.core.SecurityContext
+import javax.ws.rs.NotFoundException
 
 class TaskApiServiceMock : TaskApiService, ResettableMock {
     private val tasks = ConcurrentHashMap<String, Task>()
@@ -16,23 +15,19 @@ class TaskApiServiceMock : TaskApiService, ResettableMock {
         tasks.clear()
     }
 
-    override fun taskTaskIdGet(taskId: String, securityContext: SecurityContext): Response {
+    override fun getTask(taskId: String): Task {
         val task:Task? = tasks[taskId]
-        return if(task != null) {
-            Response.ok(task).build()
-        } else {
-            Response.status(404).build()
-        }
+        return task ?: throw NotFoundException();
     }
 
-    override fun taskGet(securityContext: SecurityContext): Response {
+    override fun getTasks(): Tasks {
         val tasksContainer = Tasks().tasks(tasks.values.toList())
-        return Response.ok(tasksContainer).build()
+        return tasksContainer
     }
 
-    override fun taskPost(task: Task, securityContext: SecurityContext): Response? {
+    override fun createTask(task: Task): Task {
         val taskId = UUID.randomUUID().toString()
         tasks[taskId] = task.apply { id = taskId }
-        return Response.ok(task).build()
+        return task
     }
 }

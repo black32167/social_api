@@ -3,13 +3,11 @@ package social.api.mock;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import social.api.stub.task.ApiClient;
-import social.api.stub.task.ApiException;
-import social.api.stub.task.client.TaskApi;
-import social.api.stub.task.model.Task;
-import social.api.stub.task.model.Tasks;
+import social.api.infra.client.InfraApi;
+import social.api.task.client.TaskApi;
+import social.api.task.model.Task;
+import social.api.task.model.Tasks;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,26 +25,29 @@ public class TaskApiIntegrationTest {
             .creator("Mary")
             .assignee("John");
 
-    TaskApi api;
+    TaskApi taskApi;
+    InfraApi infraApi;
     MocksServer server;
 
     @Before
-    public void init() throws IOException {
-        server = new MocksServer(BASE_PATH).start();
-        ApiClient apiClient = new ApiClient().setBasePath(BASE_PATH);
-        api = new TaskApi(apiClient);
+    public void init() throws Exception {
+//        server = new MocksServer(BASE_PATH).start();
+
+        taskApi = new TaskApi(new social.api.task.ApiClient().setBasePath(BASE_PATH));
+        infraApi = new InfraApi(new social.api.infra.ApiClient().setBasePath(BASE_PATH));
+        infraApi.restart();
     }
 
     @After
     public void tearDown() {
-        server.shutdown();
+//        server.shutdown();
     }
 
     @Test
-    public void testReturnTaskById() throws ApiException, IOException {
+    public void testReturnTaskById() throws Exception {
         String postedTaskId = postTasks(task1, task2).get(1);
 
-        Task retrievedTask = api.taskTaskIdGet(postedTaskId);
+        Task retrievedTask = taskApi.getTask(postedTaskId);
 
         assertEquals(postedTaskId, retrievedTask.getId());
         assertEquals(task2.getCreator(), retrievedTask.getCreator());
@@ -56,19 +57,19 @@ public class TaskApiIntegrationTest {
 
 
     @Test
-    public void testReturnAllTasks() throws ApiException, IOException {
+    public void testReturnAllTasks() throws Exception {
         postTasks(task1, task2);
 
-        Tasks retrievedTasksContainer = api.taskGet();
+        Tasks retrievedTasksContainer = taskApi.getTasks();
         List<Task> retrievedTasks = retrievedTasksContainer.getTasks();
 
         assertEquals(2, retrievedTasks.size());
     }
 
-    private List<String> postTasks(Task... tasks) throws ApiException {
+    private List<String> postTasks(Task... tasks) throws Exception {
         List<String> taskIds = new ArrayList<String>();
         for(Task task: tasks) {
-            taskIds.add(api.taskPost(task).getId());
+            taskIds.add(taskApi.createTask(task).getId());
         }
         return taskIds;
     }

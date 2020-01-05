@@ -14,7 +14,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 public class TaskApiIntegrationTest {
-    private static final String BASE_PATH = "http://127.0.0.1:8080";
+    private static final String BASE_PATH = "http://127.0.0.1:8080/v1";
 
     private static final Task task1 = new Task()
             .title("Find the cure")

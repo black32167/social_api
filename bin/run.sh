@@ -5,4 +5,4 @@ MAIN_CLASS=""
 # Runs mock server
 
 cd "${SERVER_MOCKS_MODULE}"
-mvn exec:java -Dexec.mainClass="social.api.test.server.MocksRunnerKt"
+mvn exec:java -Dexec.mainClass="social.api.mock.MocksRunnerKt"

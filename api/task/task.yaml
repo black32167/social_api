@@ -8,6 +8,7 @@ servers:
 paths:
   /task:
     get:
+      operationId: getTasks
       summary: Returns a list of tasks.
       tags:
         - task
@@ -19,6 +20,7 @@ paths:
               schema:
                 $ref: 'task-model.yaml#/schemas/Tasks'
     post:
+      operationId: createTask
       summary: Creates task
       tags:
         - task
@@ -41,6 +43,7 @@ paths:
                 $ref: 'task-model.yaml#/schemas/Task'
   /task/{taskId}:
     get:
+      operationId: getTask
       summary: Returns a task.
       tags:
         - task

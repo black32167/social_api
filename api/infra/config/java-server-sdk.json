@@ -1,6 +1,6 @@
 {
   "groupId" : "social.api",
-  "artifactId" : "infra-jaxrs-server",
+  "artifactId" : "infra-server",
   "apiPackage" : "social.api.infra.server",
   "modelPackage" : "social.api.infra.model"
 }

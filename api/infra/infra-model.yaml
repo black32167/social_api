@@ -1,0 +1,6 @@
+schemas:
+  RestartedResponse:
+    type: object
+    properties:
+      message:
+        type: string

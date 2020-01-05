@@ -5,8 +5,14 @@ info:
 paths:
   /restart:
     post:
+      operationId: restart
       summary: Restart infrastructure services
       tags:
         - infra
       responses:
-        '204':
+        '201':
+          description: Success response
+          content:
+            application/json:
+              schema:
+                $ref: 'infra-model.yaml#/schemas/RestartedResponse'

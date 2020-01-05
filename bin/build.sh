@@ -37,13 +37,13 @@ generate() {
 
     if [ -f "${api_pom}" ]; then
         echo "Building ${api} artifacts using pom ${api_pom}"
-        mvn_install "${GEN_TARGET}/${api}/${generator}" >> "${LOG}" 2>&1 || die "Error building artifact for api '${api}'"
+        mvn_install "${GEN_TARGET}/${api}/${generator}" || die "Error building artifact for api '${api}'"
     fi
 }
 
 mvn_install() {
     local workdir="${1}"
-    (cd "${workdir}" && mvn install)
+    (cd "${workdir}" && mvn install) >> "${LOG}" 2>&1
 }
 
 generateApi() {
@@ -64,7 +64,19 @@ generateApi() {
     done
 }
 
+buildApiGenerators() {
+    echo "Building API generators..."
+    local SERVER_SDK_GENERATOR_MODULE="$(pwd)/generators/java-server-sdk"
+    local SERVER_SDK_CODEGEN_JAR="${HOME}/.m2/repository/org/openapitools/java-server-sdk-openapi-generator/1.0.0/java-server-sdk-openapi-generator-1.0.0.jar"
+
+    # [ -f "${SERVER_SDK_CODEGEN_JAR}" ] || \
+    (cd "${SERVER_SDK_GENERATOR_MODULE}" && mvn clean install -DskipTests) >> "${LOG}" 2>&1 || die "Error API artifacts generators"
+
+    cp "${SERVER_SDK_CODEGEN_JAR}" "${DOWNLOAD}"
+}
+
 generateApis() {
+    buildApiGenerators
     rm -rf "${GEN_TARGET}"
     generateApi "task"
     generateApi "infra"
@@ -76,6 +88,9 @@ buildMockServer() {
     (cd "${SERVER_MOCKS_MODULE}" && mvn clean install -DskipTests) >> "${LOG}" 2>&1 || die "Error generating mock server"
     echo "Mock server is built"
 }
+
+SCRIPT_DIR=${BASH_SOURCE%/*}
+. ${SCRIPT_DIR}/shared.sh
 
 rm -rf "${LOG}"
 

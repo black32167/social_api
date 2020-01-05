@@ -11,6 +11,12 @@ This repository is supposed to contain:
 * _generators_ - custom API clients/stubs generators
 * _server-mocks_ - APIs server mocks and blackbox tests
 
+## Requirements
+In order to build artifacts and run mock server you'll need:
+* Maven 3
+* JDK 8
+* Bash 4
+
 ## Building artifacts
     # Builds APIs artifacts:
     <social_api>$ ./bin/build.sh apis

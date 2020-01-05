@@ -18,3 +18,5 @@ This repository is supposed to contain:
     # Builds mock API server artifact:
     <social_api>$ ./bin/build.sh mock-server
     
+## Run mock server
+    <social_api>$ ./bin/run.sh

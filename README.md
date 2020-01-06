@@ -10,6 +10,7 @@ This repository is supposed to contain:
 * _bin_ - scripts for APIs generation and mocks building
 * _generators_ - custom API clients/stubs generators
 * _server-mocks_ - APIs server mocks and blackbox tests
+* [docs](docs) - generated dociimentation
 
 ## Requirements
 In order to build artifacts and run mock server you'll need:

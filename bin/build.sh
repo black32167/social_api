@@ -77,7 +77,6 @@ generateApis() {
 generateDocs() {
     GENERATORS="html" generateApis
     echo "Documentation generated in ${GEN_TARGET}/html"
-    rm -rf "${DOCUMENTATION_OUT}"
     cp -r "${GEN_TARGET}/html" "${DOCUMENTATION_OUT}"
 }
 

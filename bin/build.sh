@@ -17,27 +17,28 @@ generate() {
     local api="${1}"
     local generator="${2}"
     local api_dir="./api/${api}"
-    local CONFIG_FILE="${api_dir}/config/${generator}.json"
-    local api_pom="${GEN_TARGET}/${api}/${generator}/pom.xml"
+    local config_file="${api_dir}/config/${generator}.json"
+    local api_out="${GEN_TARGET}/${generator}/${api}"
+    local api_pom="${api_out}/pom.xml"
 
-    PARAMS=""
-    if [ -f "${CONFIG_FILE}" ]; then
-        echo "Found config file ${CONFIG_FILE}"
-        PARAMS+="-c ${CONFIG_FILE}"
+    local params=""
+    if [ -f "${config_file}" ]; then
+        echo "Found config file ${config_file}"
+        params+="-c ${config_file}"
     fi
 
     echo "Generating API '${api}' using generator '${generator}'"
     ${SCRIPT_DIR}/openapi.sh generate \
             -g "${generator}" \
             -i "${api_dir}/${api}.yaml" \
-            -o "${GEN_TARGET}/${api}/${generator}" \
+            -o "${api_out}" \
             -p groupId=social.api,artifactId=${api}-${generator} \
-             ${PARAMS} >> "${LOG}" 2>&1  || die "Error generating ${api}"
+             ${params} >> "${LOG}" 2>&1  || die "Error generating ${api}"
 
 
     if [ -f "${api_pom}" ]; then
         echo "Building ${api} artifacts using pom ${api_pom}"
-        mvn_install "${GEN_TARGET}/${api}/${generator}" || die "Error building artifact for api '${api}'"
+        mvn_install "${api_out}" || die "Error building artifact for api '${api}'"
     fi
 }
 
@@ -48,18 +49,7 @@ mvn_install() {
 
 generateApi() {
     local api="${1}"
-
-    local impl_types=(
-         "java-server-sdk"
-#        "kotlin-server"
-#        "kotlin-spring"
-        "java"
-#        "jaxrs-spec"
-#        "jaxrs-jersey"
-#        "spring"
-#        "html"
-    )
-    for impl in ${impl_types[@]}; do
+    for impl in ${GENERATORS[@]}; do
       generate "${api}" "${impl}"
     done
 }
@@ -84,6 +74,13 @@ generateApis() {
     echo "Apis are built"
 }
 
+generateDocs() {
+    GENERATORS="html" generateApis
+    echo "Documentation generated in ${GEN_TARGET}/html"
+    rm -rf "${DOCUMENTATION_OUT}"
+    cp -r "${GEN_TARGET}/html" "${DOCUMENTATION_OUT}"
+}
+
 buildMockServer() {
     (cd "${SERVER_MOCKS_MODULE}" && mvn clean install -DskipTests) >> "${LOG}" 2>&1 || die "Error generating mock server"
     echo "Mock server is built"
@@ -91,6 +88,8 @@ buildMockServer() {
 
 SCRIPT_DIR=${BASH_SOURCE%/*}
 . ${SCRIPT_DIR}/shared.sh
+: ${GENERATORS:="java-server-sdk" "java"}
+DOCUMENTATION_OUT="docs"
 
 rm -rf "${LOG}"
 
@@ -102,6 +101,9 @@ case "${CMD}" in
     apis)
         generateApis
         ;;
+    docs)
+        generateDocs
+        ;;
     mock-server)
         buildMockServer
         ;;
@@ -111,5 +113,5 @@ case "${CMD}" in
         ;;
     *)
         echo "Usage:"
-        echo "${0} {apis|mock-server|all}"
+        echo "${0} {gens|apis|docs|mock-server|all}"
 esac

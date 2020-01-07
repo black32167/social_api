@@ -1,0 +1,21 @@
+schemas:
+  Messages:
+    type: object
+    properties:
+      messages:
+        type: array
+        items:
+          $ref: '#/schemas/Message'
+    example:
+      items:
+        - messageBody: Hello there!
+  Message:
+    type: object
+    properties:
+      id:
+        type: string
+      messageBody:
+        type: string
+    example:
+      messageBody: Hello there!
+

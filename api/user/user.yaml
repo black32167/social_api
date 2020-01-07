@@ -1,0 +1,69 @@
+openapi: 3.0.0
+info:
+  title: User management API
+  version: 0.0.1
+  description: User management API provides basic means for users management.
+  contact:
+    name: Anonymous
+    email: none@nowhere
+    url: https://black32167.github.io/social_api
+  license:
+    name: MIT license
+    url: https://opensource.org/licenses/MIT
+servers:
+  - url: http://user.example.com/v1
+    description: User management server
+paths:
+  /user:
+    get:
+      operationId: getUsers
+      summary: Returns a list of users.
+      tags:
+        - user
+      responses:
+        '200':    # status code
+          description: list of users
+          content:
+            application/json:
+              schema:
+                $ref: 'user-model.yaml#/schemas/Users'
+    post:
+      operationId: createUser
+      summary: Creates user
+      tags:
+        - user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: 'user-model.yaml#/schemas/User'
+            example:
+              name: John
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: 'user-model.yaml#/schemas/User'
+  /user/{userId}:
+    get:
+      operationId: getUser
+      summary: Returns a user.
+      tags:
+        - user
+      parameters:
+        - in: path
+          name: userId
+          schema:
+            type: string
+          required: true
+          description: user identifier
+      responses:
+        '200':    # status code
+          description: user
+          content:
+            application/json:
+              schema:
+                $ref: 'user-model.yaml#/schemas/User'

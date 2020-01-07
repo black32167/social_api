@@ -1,0 +1,71 @@
+openapi: 3.0.0
+info:
+  title: Message API
+  version: 0.0.1
+  description: Message API provides basic means for message management.
+  contact:
+    name: Anonymous
+    email: none@nowhere
+    url: https://black32167.github.io/social_api
+  license:
+    name: MIT license
+    url: https://opensource.org/licenses/MIT
+servers:
+  - url: http://message.example.com/v1
+    description: Message tracker server
+paths:
+  /message:
+    get:
+      operationId: getMessages
+      summary: Returns a list of messages.
+      tags:
+        - message
+      responses:
+        '200':    # status code
+          description: list of messages
+          content:
+            application/json:
+              schema:
+                $ref: 'message-model.yaml#/schemas/Messages'
+    post:
+      operationId: createMessage
+      summary: Creates message
+      tags:
+        - message
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: 'message-model.yaml#/schemas/Message'
+            example:
+              title: Build the spaceship1
+              creatoe: John1
+              assignee: Jane1
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: 'message-model.yaml#/schemas/Message'
+  /message/{messageId}:
+    get:
+      operationId: getMessage
+      summary: Returns a message.
+      tags:
+        - message
+      parameters:
+        - in: path
+          name: messageId
+          schema:
+            type: string
+          required: true
+          description: message identifier
+      responses:
+        '200':    # status code
+          description: message
+          content:
+            application/json:
+              schema:
+                $ref: 'message-model.yaml#/schemas/Message'

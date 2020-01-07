@@ -87,6 +87,8 @@ generateApis() {
     rm -rf "${GEN_TARGET}"
     generateApi "task"
     generateApi "admin"
+    generateApi "user"
+    generateApi "message"
 
     echo "Apis are built"
 }

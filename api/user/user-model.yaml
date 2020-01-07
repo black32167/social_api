@@ -1,0 +1,21 @@
+schemas:
+  Users:
+    type: object
+    properties:
+      users:
+        type: array
+        items:
+          $ref: '#/schemas/User'
+    example:
+      items:
+        - name: John
+        - name: Jane
+  User:
+    type: object
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+    example:
+      name: John

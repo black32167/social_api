@@ -77,7 +77,7 @@ generateApis() {
 generateDocs() {
     GENERATORS="html" generateApis
     echo "Documentation generated in ${GEN_TARGET}/html"
-    cp -r "${GEN_TARGET}/html" "${DOCUMENTATION_OUT}"
+    cp -rv "${GEN_TARGET}/html/." "${DOCUMENTATION_OUT}/"
 }
 
 buildMockServer() {

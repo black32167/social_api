@@ -1,20 +1,22 @@
 package social.api.mock;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import social.api.infra.client.InfraApi;
+import social.api.admin.client.AdminApi;
 import social.api.task.client.TaskApi;
 import social.api.task.model.Task;
 import social.api.task.model.Tasks;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
 public class TaskApiIntegrationTest {
-    private static final String BASE_PATH = "http://127.0.0.1:8080/v1";
+    private static final String DEFAUT_BASE_PATH = "http://127.0.0.1:8081/v1";
+    private static final String TASK_BASE_PATH = System.getProperty("taskApiPath", DEFAUT_BASE_PATH);
+    private static final String TASK_ADMIN_BASE_PATH = System.getProperty("taskAdminApiPath", DEFAUT_BASE_PATH);
 
     private static final Task task1 = new Task()
             .title("Find the cure")
@@ -25,22 +27,14 @@ public class TaskApiIntegrationTest {
             .creator("Mary")
             .assignee("John");
 
-    TaskApi taskApi;
-    InfraApi infraApi;
-    MocksServer server;
+    static final TaskApi taskApi = new TaskApi(new social.api.task.ApiClient().setBasePath(TASK_BASE_PATH));
+    static List<AdminApi> adminApis = Arrays.asList(new AdminApi(new social.api.admin.ApiClient().setBasePath(TASK_ADMIN_BASE_PATH)));
 
     @Before
     public void init() throws Exception {
-//        server = new MocksServer(BASE_PATH).start();
-
-        taskApi = new TaskApi(new social.api.task.ApiClient().setBasePath(BASE_PATH));
-        infraApi = new InfraApi(new social.api.infra.ApiClient().setBasePath(BASE_PATH));
-        infraApi.restart();
-    }
-
-    @After
-    public void tearDown() {
-//        server.shutdown();
+        for(AdminApi adminApi: adminApis) {
+            adminApi.restart();
+        }
     }
 
     @Test

@@ -1,8 +1,8 @@
 openapi: 3.0.0
 info:
-  title: Infrastructure Control API
+  title: Administrative Control API
   version: 0.0.1
-  description: Infrastructure API provides way to control whole infrastructure behavior.
+  description: Administrative API provides way to control whole infrastructure behavior.
   contact:
     name: Anonymous
     email: none@nowhere
@@ -16,11 +16,11 @@ paths:
       operationId: restart
       summary: Restart infrastructure services
       tags:
-        - infra
+        - admin
       responses:
         '201':
           description: Success response
           content:
             application/json:
               schema:
-                $ref: 'infra-model.yaml#/schemas/RestartedResponse'
+                $ref: 'admin-model.yaml#/schemas/RestartedResponse'

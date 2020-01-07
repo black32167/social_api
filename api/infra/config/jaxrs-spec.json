@@ -1,6 +1,0 @@
-{
-  "groupId" : "social.api",
-  "artifactId" : "infra-spec-server",
-  "apiPackage" : "social.api.infra.server",
-  "modelPackage" : "social.api.infra.model"
-}

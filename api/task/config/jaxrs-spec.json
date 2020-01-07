@@ -1,6 +1,0 @@
-{
-  "groupId" : "social.api",
-  "artifactId" : "task-spec-server",
-  "apiPackage" : "social.api.task.server",
-  "modelPackage" : "social.api.task.model"
-}

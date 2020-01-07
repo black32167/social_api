@@ -13,6 +13,19 @@ die() {
     exit 1
 }
 
+generator2ArtifactType() {
+  case "${1}" in
+  java)
+    echo "client"
+    ;;
+  java-server-sdk)
+    echo "server"
+    ;;
+  *)
+    echo "${1}"
+  esac
+
+}
 generate() {
     local api="${1}"
     local generator="${2}"
@@ -20,6 +33,7 @@ generate() {
     local config_file="${api_dir}/config/${generator}.json"
     local api_out="${GEN_TARGET}/${generator}/${api}"
     local api_pom="${api_out}/pom.xml"
+    local artifact_type=$(generator2ArtifactType ${generator})
 
     local params=""
     if [ -f "${config_file}" ]; then
@@ -32,7 +46,10 @@ generate() {
             -g "${generator}" \
             -i "${api_dir}/${api}.yaml" \
             -o "${api_out}" \
-            -p groupId=social.api,artifactId=${api}-${generator} \
+            -p groupId=social.api \
+            -p "artifactId=${api}-${artifact_type}" \
+            -p "apiPackage=social.api.${api}.${artifact_type}" \
+            -p "modelPackage=social.api.${api}.model" \
              ${params} >> "${LOG}" 2>&1  || die "Error generating ${api}"
 
 
@@ -69,7 +86,7 @@ generateApis() {
     buildApiGenerators
     rm -rf "${GEN_TARGET}"
     generateApi "task"
-    generateApi "infra"
+    generateApi "admin"
 
     echo "Apis are built"
 }

@@ -51,7 +51,7 @@ class JaxRsServer(val baseUri: String, var apiResources: Array<Any>) {
         val taskMock = TaskApiServiceMock()
         return arrayOf(
                 social.api.task.server.TaskApiResource(taskMock),
-                social.api.infra.server.InfraApiResource(MockApiServiceImpl(listOf(taskMock)))
+                social.api.admin.server.AdminApiResource(MockApiServiceImpl(listOf(taskMock)))
         )
     }
 }

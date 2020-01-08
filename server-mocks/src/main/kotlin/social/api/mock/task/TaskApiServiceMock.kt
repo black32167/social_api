@@ -15,15 +15,11 @@ class TaskApiServiceMock : TaskApiService, ResettableMock {
         tasks.clear()
     }
 
-    override fun getTask(taskId: String): Task {
-        val task:Task? = tasks[taskId]
-        return task ?: throw NotFoundException();
-    }
+    override fun getTask(taskId: String): Task
+            = tasks[taskId] ?: throw NotFoundException()
 
-    override fun getTasks(): Tasks {
-        val tasksContainer = Tasks().tasks(tasks.values.toList())
-        return tasksContainer
-    }
+    override fun getTasks(): Tasks
+            = Tasks().tasks(tasks.values.toList())
 
     override fun createTask(task: Task): Task {
         val taskId = UUID.randomUUID().toString()

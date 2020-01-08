@@ -6,7 +6,7 @@ import org.glassfish.jersey.jackson.JacksonFeature
 import org.glassfish.jersey.logging.LoggingFeature
 import org.glassfish.jersey.server.ResourceConfig
 import org.slf4j.bridge.SLF4JBridgeHandler
-import social.api.mock.control.MockApiServiceImpl
+import social.api.mock.control.AdminApiServiceMock
 import social.api.mock.task.TaskApiServiceMock
 import java.io.IOException
 import java.net.URI
@@ -51,7 +51,7 @@ class JaxRsServer(val baseUri: String, var apiResources: Array<Any>) {
         val taskMock = TaskApiServiceMock()
         return arrayOf(
                 social.api.task.server.TaskApiResource(taskMock),
-                social.api.admin.server.AdminApiResource(MockApiServiceImpl(listOf(taskMock)))
+                social.api.admin.server.AdminApiResource(AdminApiServiceMock(listOf(taskMock)))
         )
     }
 }

@@ -80,7 +80,7 @@
             <version>${social.api.version}</version>
         </dependency>
 
-        <!-- Mock API artifacts -->
+        <!-- Admin API artifacts -->
         <dependency>
             <groupId>social.api</groupId>
             <artifactId>admin-client</artifactId>
@@ -89,6 +89,30 @@
         <dependency>
             <groupId>social.api</groupId>
             <artifactId>admin-server</artifactId>
+            <version>${social.api.version}</version>
+        </dependency>
+
+        <!-- User API artifacts -->
+        <dependency>
+            <groupId>social.api</groupId>
+            <artifactId>user-client</artifactId>
+            <version>${social.api.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>social.api</groupId>
+            <artifactId>user-server</artifactId>
+            <version>${social.api.version}</version>
+        </dependency>
+
+        <!-- Message API artifacts -->
+        <dependency>
+            <groupId>social.api</groupId>
+            <artifactId>message-client</artifactId>
+            <version>${social.api.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>social.api</groupId>
+            <artifactId>message-server</artifactId>
             <version>${social.api.version}</version>
         </dependency>
 

@@ -19,3 +19,18 @@ schemas:
         type: string
     example:
       name: John
+  UserAuth:
+    type: object
+    properties:
+      authToken:
+        type: string
+  ValidationResult:
+    type: object
+    properties:
+      valid:
+        type: boolean
+  UserCredentials:
+    type: object
+    properties:
+      password:
+        type: String

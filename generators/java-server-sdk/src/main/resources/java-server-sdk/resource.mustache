@@ -3,12 +3,17 @@ package {{package}};
 {{#operations}}
 import {{modelPackage}}.*;
 import javax.ws.rs.*;
+import javax.ws.rs.core.SecurityContext;
+import javax.ws.rs.core.Context;
+import io.swagger.annotations.*;
 
 @Produces("application/json")
 @Consumes("application/json")
 @Path("")
 public class {{classname}}Resource {
     private final {{classname}}Service delegate;
+    @Context
+    private SecurityContext securityContext;
 
     public {{classname}}Resource({{classname}}Service delegate) {
         this.delegate = delegate;
@@ -17,9 +22,10 @@ public class {{classname}}Resource {
     {{#operation}}
     @Path("{{path}}")
     @{{httpMethod}}
-    public {{#responses}}{{baseType}}{{/responses}} {{operationId}}({{!
+    {{#authMethods}}@Authorization("{{name}}"){{/authMethods}}
+    public {{#responses}}{{baseType}}{{^baseType}}void{{/baseType}}{{/responses}} {{operationId}}({{!
     }}{{#allParams}}{{>pathParam}}{{dataType}} {{paramName}}{{#hasMore}},{{/hasMore}}{{/allParams}}) {
-        return delegate.{{operationId}}({{#allParams}}{{paramName}}{{#hasMore}},{{/hasMore}}{{/allParams}});
+        {{#responses}}{{#baseType}}return {{/baseType}}{{/responses}}delegate.{{operationId}}({{#allParams}}{{paramName}}{{#hasMore}},{{/hasMore}}{{/allParams}});
     }
     {{/operation}}
 }

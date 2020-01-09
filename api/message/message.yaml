@@ -13,6 +13,12 @@ info:
 servers:
   - url: http://message.example.com/v1
     description: Message tracker server
+security:
+  - basicAuth: []
+components:
+  securitySchemes:
+    basicAuth:
+      $ref: '../security.yaml#/securitySchemes/basicAuth'
 paths:
   /message:
     get:

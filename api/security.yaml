@@ -1,0 +1,4 @@
+securitySchemes:
+  basicAuth:     # <-- arbitrary name for the security scheme
+    type: http
+    scheme: basic

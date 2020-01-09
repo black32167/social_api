@@ -67,3 +67,37 @@ paths:
             application/json:
               schema:
                 $ref: 'user-model.yaml#/schemas/User'
+  /user/validate:
+    post:
+      operationId: validate
+      summary: Validates credentials
+      tags:
+        - user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: 'user-model.yaml#/schemas/UserAuth'
+      responses:
+        '200':    # status code
+          description: validation result
+          content:
+            application/json:
+              schema:
+                $ref: 'user-model.yaml#/schemas/ValidationResult'
+  /user/credentials:
+    post:
+      operationId: setCredentials
+      summary: Sets credentials
+      tags:
+        - user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: 'user-model.yaml#/schemas/UserCredentials'
+      responses:
+        '204':    # status code
+          description: no content

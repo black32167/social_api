@@ -3,7 +3,6 @@ package social.api.mock.test.auth;
 import org.junit.Test;
 import social.api.mock.test.AbstractApiIntegrationTest;
 import social.api.task.model.Task;
-import social.api.task.model.TaskFilter;
 
 import static org.junit.Assert.fail;
 
@@ -15,7 +14,7 @@ public class TaskApiAuthenticationIT extends AbstractApiIntegrationTest {
     @Test
     public void testGetTasksFailedWithoutAuthentication() throws Exception {
         try {
-            taskApi.getTasks(new TaskFilter().assignee("assignee"));
+            taskApi.getTasks(null);
             fail("Should prevent getTasks for unauthenticated user");
         } catch (Exception e) {
         }

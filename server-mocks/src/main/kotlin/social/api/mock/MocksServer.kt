@@ -1,9 +1,11 @@
 package social.api.mock
 
+import social.api.message.client.MessageApi
 import social.api.mock.control.AdminApiServiceMock
 import social.api.mock.message.MessageApiServiceMock
 import social.api.mock.task.TaskApiServiceMock
 import social.api.mock.user.UserApiServiceMock
+import social.api.user.client.UserApi
 import java.io.IOException
 
 class MocksServer(val baseUri: String) {
@@ -13,7 +15,11 @@ class MocksServer(val baseUri: String) {
     fun start(): MocksServer {
         check(jaxRsServer == null) { "Server is already run" }
 
-        jaxRsServer = JaxRsServer(baseUri, createApiResources()).start()
+        jaxRsServer = JaxRsServer(
+                baseUri,
+                createApiResources(),
+                arrayOf(AuthFilter(UserApi(social.api.user.ApiClient().setBasePath(baseUri)))))
+        .start()
         return this
     }
 
@@ -23,10 +29,13 @@ class MocksServer(val baseUri: String) {
     }
 
     private fun createApiResources(): Array<Any> {
-        val taskMock = TaskApiServiceMock()
+        val messageApiClient = social.api.message.ApiClient().setBasePath(baseUri)
+        messageApiClient.setBearerToken(MockConstants.SYSTEM_AUTH_TOKEN)
+        val messageApi = MessageApi(messageApiClient)
+        val taskMock = TaskApiServiceMock(messageApi)
         val userMock = UserApiServiceMock()
         val messageMock = MessageApiServiceMock()
-        var adminMock = AdminApiServiceMock(listOf(taskMock, userMock, messageMock))
+        val adminMock = AdminApiServiceMock(listOf(taskMock, userMock, messageMock))
         return arrayOf(
                 social.api.task.server.TaskApiResource(taskMock),
                 social.api.admin.server.AdminApiResource(adminMock),

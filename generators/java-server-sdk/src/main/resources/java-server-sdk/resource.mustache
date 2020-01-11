@@ -22,9 +22,9 @@ public class {{classname}}Resource {
     {{#operation}}
     @Path("{{path}}")
     @{{httpMethod}}
-    {{#authMethods}}@Authorization("{{name}}"){{/authMethods}}
+    {{#authMethods}}{{#isBasicBasic}}@Authorization("{{name}}"){{/isBasicBasic}}{{/authMethods}}
     public {{#responses}}{{baseType}}{{^baseType}}void{{/baseType}}{{/responses}} {{operationId}}({{!
-    }}{{#allParams}}{{>pathParam}}{{dataType}} {{paramName}}{{#hasMore}},{{/hasMore}}{{/allParams}}) {
+    }}{{#allParams}}{{>pathParam}}{{>queryParam}}{{dataType}} {{paramName}}{{#hasMore}},{{/hasMore}}{{/allParams}}) {
         {{#responses}}{{#baseType}}return {{/baseType}}{{/responses}}delegate.{{operationId}}({{#allParams}}{{paramName}}{{#hasMore}},{{/hasMore}}{{/allParams}});
     }
     {{/operation}}

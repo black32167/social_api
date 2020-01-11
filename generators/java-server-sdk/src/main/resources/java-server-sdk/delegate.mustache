@@ -5,7 +5,7 @@ import {{modelPackage}}.*;
 
 public interface {{classname}}Service {
     {{#operation}}
-    {{#responses}}{{baseType}}{{^baseType}}void{{/baseType}}{{/responses}} {{operationId}}({{#allParams}}{{dataType}} {{paramName}}{{/allParams}});
+    {{#responses}}{{baseType}}{{^baseType}}void{{/baseType}}{{/responses}} {{operationId}}({{#allParams}}{{dataType}} {{paramName}}{{#hasMore}},{{/hasMore}}{{/allParams}});
     {{/operation}}
 }
 {{/operations}}

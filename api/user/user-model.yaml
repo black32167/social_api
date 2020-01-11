@@ -13,8 +13,6 @@ schemas:
   User:
     type: object
     properties:
-      id:
-        type: string
       name:
         type: string
     example:
@@ -29,6 +27,8 @@ schemas:
     properties:
       valid:
         type: boolean
+      userName:
+        type: string
   UserCredentials:
     type: object
     properties:

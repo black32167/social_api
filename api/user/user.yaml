@@ -47,7 +47,7 @@ paths:
             application/json:
               schema:
                 $ref: 'user-model.yaml#/schemas/User'
-  /user/{userId}:
+  /user/{userName}:
     get:
       operationId: getUser
       summary: Returns a user.
@@ -55,7 +55,7 @@ paths:
         - user
       parameters:
         - in: path
-          name: userId
+          name: userName
           schema:
             type: string
           required: true
@@ -86,12 +86,19 @@ paths:
             application/json:
               schema:
                 $ref: 'user-model.yaml#/schemas/ValidationResult'
-  /user/credentials:
+  /user/{userName}/credentials:
     post:
       operationId: setCredentials
       summary: Sets credentials
       tags:
         - user
+      parameters:
+        - in: path
+          name: userName
+          schema:
+           type: string
+          required: true
+          description: user identifier
       requestBody:
         required: true
         content:

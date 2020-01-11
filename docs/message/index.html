@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
   <head>
-    <title>Task API</title>
+    <title>Message API</title>
     <style type="text/css">
       body {
 	font-family: Trebuchet MS, sans-serif;
@@ -179,8 +179,8 @@ font-style: italic;
     </style>
   </head>
   <body>
-  <h1>Task API</h1>
-    <div class="app-desc">Task API provides basic means for task management.</div>
+  <h1>Message API</h1>
+    <div class="app-desc">Message API provides basic means for message management.</div>
     <div class="app-desc">More information: <a href="https://black32167.github.io/social_api">https://black32167.github.io/social_api</a></div>
     <div class="app-desc">Contact Info: <a href="none@nowhere">none@nowhere</a></div>
     <div class="app-desc">Version: 0.0.1</div>
@@ -198,19 +198,20 @@ font-style: italic;
 
   <h3>Table of Contents </h3>
   <div class="method-summary"></div>
-  <h4><a href="#Task">Task</a></h4>
+  <h4><a href="#Message">Message</a></h4>
   <ul>
-  <li><a href="#createTask"><code><span class="http-method">post</span> /task</code></a></li>
-  <li><a href="#getTask"><code><span class="http-method">get</span> /task/{taskId}</code></a></li>
-  <li><a href="#getTasks"><code><span class="http-method">get</span> /task</code></a></li>
+  <li><a href="#createMessage"><code><span class="http-method">post</span> /message/outgoing</code></a></li>
+  <li><a href="#getIncomingMessages"><code><span class="http-method">get</span> /message/incoming</code></a></li>
+  <li><a href="#getMessage"><code><span class="http-method">get</span> /message/{messageId}</code></a></li>
+  <li><a href="#getOutgoingMessages"><code><span class="http-method">get</span> /message/outgoing</code></a></li>
   </ul>
 
-  <h1><a name="Task">Task</a></h1>
-  <div class="method"><a name="createTask"/>
+  <h1><a name="Message">Message</a></h1>
+  <div class="method"><a name="createMessage"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="post"><code class="huge"><span class="http-method">post</span> /task</code></pre></div>
-    <div class="method-summary">Creates task (<span class="nickname">createTask</span>)</div>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /message/outgoing</code></pre></div>
+    <div class="method-summary">Sends message (<span class="nickname">createMessage</span>)</div>
     <div class="method-notes"></div>
 
 
@@ -222,7 +223,7 @@ font-style: italic;
 
     <h3 class="field-label">Request body</h3>
     <div class="field-items">
-      <div class="param">Task <a href="#Task">Task</a> (required)</div>
+      <div class="param">Message <a href="#Message">Message</a> (required)</div>
 
       <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
 
@@ -233,7 +234,7 @@ font-style: italic;
 
     <h3 class="field-label">Return type</h3>
     <div class="return-type">
-      <a href="#Task">Task</a>
+      <a href="#Message">Message</a>
       
     </div>
 
@@ -242,9 +243,7 @@ font-style: italic;
     <h3 class="field-label">Example data</h3>
     <div class="example-data-content-type">Content-Type: application/json</div>
     <pre class="example"><code>{
-  "title" : "Build the spaceship",
-  "creator" : "John",
-  "assignee" : "Jane"
+  "messageBody" : "Hello there!"
 }</code></pre>
 
     <h3 class="field-label">Produces</h3>
@@ -257,22 +256,16 @@ font-style: italic;
     <h3 class="field-label">Responses</h3>
     <h4 class="field-label">201</h4>
     Created
-        <a href="#Task">Task</a>
+        <a href="#Message">Message</a>
   </div> <!-- method -->
   <hr/>
-  <div class="method"><a name="getTask"/>
+  <div class="method"><a name="getIncomingMessages"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /task/{taskId}</code></pre></div>
-    <div class="method-summary">Returns a task. (<span class="nickname">getTask</span>)</div>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /message/incoming</code></pre></div>
+    <div class="method-summary">Returns a list of incoming messages. (<span class="nickname">getIncomingMessages</span>)</div>
     <div class="method-notes"></div>
 
-    <h3 class="field-label">Path parameters</h3>
-    <div class="field-items">
-      <div class="param">taskId (required)</div>
-
-      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; task identifier default: null </div>
-    </div>  <!-- field-items -->
 
 
 
@@ -281,55 +274,7 @@ font-style: italic;
 
     <h3 class="field-label">Return type</h3>
     <div class="return-type">
-      <a href="#Task">Task</a>
-      
-    </div>
-
-    <!--Todo: process Response Object and its headers, schema, examples -->
-
-    <h3 class="field-label">Example data</h3>
-    <div class="example-data-content-type">Content-Type: application/json</div>
-    <pre class="example"><code>{
-  "title" : "Build the spaceship",
-  "creator" : "John",
-  "assignee" : "Jane"
-}</code></pre>
-
-    <h3 class="field-label">Produces</h3>
-    This API call produces the following media types according to the <span class="header">Accept</span> request header;
-    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
-    <ul>
-      <li><code>application/json</code></li>
-    </ul>
-
-    <h3 class="field-label">Responses</h3>
-    <h4 class="field-label">200</h4>
-    task
-        <a href="#Task">Task</a>
-  </div> <!-- method -->
-  <hr/>
-  <div class="method"><a name="getTasks"/>
-    <div class="method-path">
-    <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /task</code></pre></div>
-    <div class="method-summary">Returns a list of tasks. (<span class="nickname">getTasks</span>)</div>
-    <div class="method-notes"></div>
-
-
-
-
-
-    <h3 class="field-label">Query parameters</h3>
-    <div class="field-items">
-      <div class="param">filter (optional)</div>
-
-      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash;  default: null </div>
-    </div>  <!-- field-items -->
-
-
-    <h3 class="field-label">Return type</h3>
-    <div class="return-type">
-      <a href="#Tasks">Tasks</a>
+      <a href="#Messages">Messages</a>
       
     </div>
 
@@ -339,13 +284,7 @@ font-style: italic;
     <div class="example-data-content-type">Content-Type: application/json</div>
     <pre class="example"><code>{
   "items" : [ {
-    "title" : "Build the spaceship",
-    "creator" : "John",
-    "assignee" : "Jane"
-  }, {
-    "title" : "Colonize Mars",
-    "creator" : "Jane",
-    "assignee" : "John"
+    "messageBody" : "Hello there!"
   } ]
 }</code></pre>
 
@@ -358,8 +297,96 @@ font-style: italic;
 
     <h3 class="field-label">Responses</h3>
     <h4 class="field-label">200</h4>
-    list of tasks
-        <a href="#Tasks">Tasks</a>
+    list of messages
+        <a href="#Messages">Messages</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="getMessage"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /message/{messageId}</code></pre></div>
+    <div class="method-summary">Returns a message. (<span class="nickname">getMessage</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">messageId (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; message identifier default: null </div>
+    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Message">Message</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "messageBody" : "Hello there!"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    message
+        <a href="#Message">Message</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="getOutgoingMessages"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /message/outgoing</code></pre></div>
+    <div class="method-summary">Returns a list of outgoing messages. (<span class="nickname">getOutgoingMessages</span>)</div>
+    <div class="method-notes"></div>
+
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Messages">Messages</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "items" : [ {
+    "messageBody" : "Hello there!"
+  } ]
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    list of messages
+        <a href="#Messages">Messages</a>
   </div> <!-- method -->
   <hr/>
 
@@ -368,25 +395,25 @@ font-style: italic;
 
   <h3>Table of Contents</h3>
   <ol>
-    <li><a href="#Task"><code>Task</code> - </a></li>
-    <li><a href="#Tasks"><code>Tasks</code> - </a></li>
+    <li><a href="#Message"><code>Message</code> - </a></li>
+    <li><a href="#Messages"><code>Messages</code> - </a></li>
   </ol>
 
   <div class="model">
-    <h3><a name="Task"><code>Task</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <h3><a name="Message"><code>Message</code> - </a> <a class="up" href="#__Models">Up</a></h3>
     <div class='model-description'></div>
     <div class="field-items">
       <div class="param">id (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
-<div class="param">title (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
-<div class="param">creator (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
-<div class="param">assignee (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">messageBody (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">sender (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">recipient (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
     </div>  <!-- field-items -->
   </div>
   <div class="model">
-    <h3><a name="Tasks"><code>Tasks</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <h3><a name="Messages"><code>Messages</code> - </a> <a class="up" href="#__Models">Up</a></h3>
     <div class='model-description'></div>
     <div class="field-items">
-      <div class="param">tasks (optional)</div><div class="param-desc"><span class="param-type"><a href="#Task">array[Task]</a></span>  </div>
+      <div class="param">messages (optional)</div><div class="param-desc"><span class="param-type"><a href="#Message">array[Message]</a></span>  </div>
     </div>  <!-- field-items -->
   </div>
   </body>

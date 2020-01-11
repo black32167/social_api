@@ -29,3 +29,11 @@ schemas:
       title: Build the spaceship
       creator: John
       assignee: Jane
+  TaskFilter:
+    type: object
+    properties:
+      creator:
+        type: string
+      assignee:
+        type: string
+

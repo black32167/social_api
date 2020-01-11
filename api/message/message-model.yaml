@@ -16,6 +16,10 @@ schemas:
         type: string
       messageBody:
         type: string
+      sender:
+        type: string
+      recipient:
+        type: string
     example:
       messageBody: Hello there!
 

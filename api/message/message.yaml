@@ -15,19 +15,35 @@ servers:
     description: Message tracker server
 security:
   - basicAuth: []
+  - bearerAuth: []
 components:
   securitySchemes:
     basicAuth:
       $ref: '../security.yaml#/securitySchemes/basicAuth'
+    bearerAuth:
+      $ref: '../security.yaml#/securitySchemes/bearerAuth'
 paths:
-  /message:
+  /message/incoming:
     get:
-      operationId: getMessages
-      summary: Returns a list of messages.
+      operationId: getIncomingMessages
+      summary: Returns a list of incoming messages.
       tags:
         - message
       responses:
-        '200':    # status code
+        '200':
+          description: list of messages
+          content:
+            application/json:
+              schema:
+                $ref: 'message-model.yaml#/schemas/Messages'
+  /message/outgoing:
+    get:
+      operationId: getOutgoingMessages
+      summary: Returns a list of outgoing messages.
+      tags:
+        - message
+      responses:
+        '200':
           description: list of messages
           content:
             application/json:
@@ -35,7 +51,7 @@ paths:
                 $ref: 'message-model.yaml#/schemas/Messages'
     post:
       operationId: createMessage
-      summary: Creates message
+      summary: Sends message
       tags:
         - message
       requestBody:

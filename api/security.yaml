@@ -2,3 +2,6 @@ securitySchemes:
   basicAuth:     # <-- arbitrary name for the security scheme
     type: http
     scheme: basic
+  bearerAuth:            # arbitrary name for the security scheme
+    type: http
+    scheme: bearer

@@ -85,11 +85,9 @@ buildApiGenerators() {
 generateApis() {
     buildApiGenerators
     rm -rf "${GEN_TARGET}"
-    generateApi "task"
-    generateApi "admin"
-    generateApi "user"
-    generateApi "message"
-
+    for api in ${APIS[@]}; do
+      generateApi "${api}"
+    done
     echo "Apis are built"
 }
 
@@ -106,7 +104,8 @@ buildMockServer() {
 
 SCRIPT_DIR=${BASH_SOURCE%/*}
 . ${SCRIPT_DIR}/shared.sh
-: ${GENERATORS:="java-server-sdk" "java"}
+: ${GENERATORS:="java" "java-server-sdk"}
+: ${APIS:="task" "admin" "user" "message"}
 DOCUMENTATION_OUT="docs"
 
 rm -rf "${LOG}"

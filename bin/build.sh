@@ -77,7 +77,7 @@ buildApiGenerators() {
     local SERVER_SDK_CODEGEN_JAR="${HOME}/.m2/repository/org/openapitools/java-server-sdk-openapi-generator/1.0.0/java-server-sdk-openapi-generator-1.0.0.jar"
 
     # [ -f "${SERVER_SDK_CODEGEN_JAR}" ] || \
-    (cd "${SERVER_SDK_GENERATOR_MODULE}" && mvn clean install -DskipTests) >> "${LOG}" 2>&1 || die "Error API artifacts generators"
+    (cd "${SERVER_SDK_GENERATOR_MODULE}" && mvn clean install) >> "${LOG}" 2>&1 || die "Error API artifacts generators"
 
     cp "${SERVER_SDK_CODEGEN_JAR}" "${DOWNLOAD}"
 }

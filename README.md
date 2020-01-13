@@ -7,7 +7,7 @@ user management, task management and messaging.
 * _bin_ - scripts for APIs generation and mocks building
 * [generators](generators) - custom API clients/stubs generators
 * [server-mocks](server-mocks) - APIs server mocks and black box tests
-* [docs](docs) - generated APIs documentation
+* [docs](docs) - generated APIs [documentation](https://black32167.github.io/social_api/docs/)
 
 ## Requirements
 In order to generate APIs clients, server SDKs and run mock implementation you'll need:

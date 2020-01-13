@@ -6,11 +6,11 @@ user management, task management and messaging.
 * [api](api) - APIs declarations
 * _bin_ - scripts for APIs generation and mocks building
 * [generators](generators) - custom API clients/stubs generators
-* [server-mocks](server-mocks) - APIs server mocks and blackbox tests
+* [server-mocks](server-mocks) - APIs server mocks and black box tests
 * [docs](docs) - generated APIs documentation
 
 ## Requirements
-In order to build artifacts and run mock server you'll need:
+In order to generate APIs clients, server SDKs and run mock implementation you'll need:
 * Maven 3
 * JDK 8
 * Bash 4

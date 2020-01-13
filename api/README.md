@@ -1,8 +1,8 @@
 # Collaboration APIs specifications
 
 ## Administrative API
-Backdoor API enabling blackbox tests restart/'cleanup' services.
-Eases blackbox testing of service in mocked environment.
+Backdoor API enabling to reset services.
+Eases black box testing of dependent service in the [mocked](../server-mocks) environment.
 
 ## User management API
 User management API. Provides users registration and authentication for other services.

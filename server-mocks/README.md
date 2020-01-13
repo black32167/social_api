@@ -8,7 +8,7 @@ Contains Java black box tests running scenarios against APIs implementations usi
 Typical test might look like:
 
 ```java
-public class TaskApiIntegrationTest extends AbstractApiIntegrationTest {
+public class TaskApiIT extends AbstractApiTest {
     private static final Task task1 = ...
     private static final Task task2 = ...
 

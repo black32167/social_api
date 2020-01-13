@@ -5,13 +5,13 @@ Backdoor API enabling blackbox tests restart/'cleanup' services.
 Eases blackbox testing of service in mocked environment.
 
 ## User management API
-User management API. Enables users registration and authentication from other services.
+User management API. Provides users registration and authentication for other services.
 
 ## Message management API
-Provides endpoints for registered users to send and receive messages.
+Allows registered users to send and receive messages.
 
 ## Task management API
-Supports CRUD operation on tasks and notification.
-Each task has title, description and might have an assigned person responsible for task's fulfillment.
-Once task is submitted, message to assignee is sent using message service.
+Enables basic tasks management. 
+Each task has a title, description and might have an assigned person responsible for task's fulfillment.
+Once task is submitted, message is sent to assignee using message service.
 

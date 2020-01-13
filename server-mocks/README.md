@@ -9,23 +9,22 @@ Typical test might look like:
 
 ```java
 public class TaskApiIT extends AbstractApiTest {
-    private static final Task task1 = ...
-    private static final Task task2 = ...
+    private static final Task task = ...
 
     @Test
     public void testReturnTaskById() throws Exception {
         // Register test user and prepare test data using API calls
         createAndAuthenticate(JOHN_NAME, JOHN_PASSWORD);
-        String postedTaskId = postTasks(task1, task2).get(1);
+        String postedTaskId = taskApi.createTask(task).getId();
 
         // Run scenario
         Task retrievedTask = taskApi.getTask(postedTaskId);
         
         // Validate result
         assertEquals(postedTaskId, retrievedTask.getId());
-        assertEquals(task2.getCreator(), retrievedTask.getCreator());
-        assertEquals(task2.getAssignee(), retrievedTask.getAssignee());
-        assertEquals(task2.getTitle(), retrievedTask.getTitle());
+        assertEquals(task.getCreator(), retrievedTask.getCreator());
+        assertEquals(task.getAssignee(), retrievedTask.getAssignee());
+        assertEquals(task.getTitle(), retrievedTask.getTitle());
     }
 //...
 }

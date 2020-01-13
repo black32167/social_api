@@ -1,85 +1,59 @@
-# OpenAPI Generator for the java-server-sdk library
+# OpenAPI JAX-RS delegating resource generator
 
 ## Overview
-This is a boiler-plate project to generate your own project derived from an OpenAPI specification.
-Its goal is to get you started with the basic plumbing so you can put in your own logic.
-It won't work without your changes applied.
+This is a project to generate Resource and service implementation interface from 
+an OpenAPI specification.
 
-## What's OpenAPI
-The goal of OpenAPI is to define a standard, language-agnostic interface to REST APIs which allows both humans and computers to discover and understand the capabilities of the service without access to source code, documentation, or through network traffic inspection.
-When properly described with OpenAPI, a consumer can understand and interact with the remote service with a minimal amount of implementation logic.
-Similar to what interfaces have done for lower-level programming, OpenAPI removes the guesswork in calling the service.
+## Generated code example
+The generator will create maven project producing small library containing repository class
+and service interface which you can implement in your JAX-RS server.
 
-Check out [OpenAPI-Spec](https://github.com/OAI/OpenAPI-Specification) for additional information about the OpenAPI project, including additional libraries with support for other languages and more. 
+### Resource class
 
-## How do I use this?
-At this point, you've likely generated a client setup.  It will include something along these lines:
+```java
+@Produces({"application/json"})
+@Consumes({"application/json"})
+@Path("")
+public class TaskApiResource {
+    private final TaskApiService delegate;
+    @Context
+    private SecurityContext securityContext;
 
-```
-.
-|- README.md    // this file
-|- pom.xml      // build script
-|-- src
-|--- main
-|---- java
-|----- social.api.JavaServerSdkGenerator.java // generator file
-|---- resources
-|----- java-server-sdk // template files
-|----- META-INF
-|------ services
-|------- org.openapitools.codegen.CodegenConfig
-```
+    public TaskApiResource(TaskApiService delegate) {
+        this.delegate = delegate;
+    }
 
-You _will_ need to make changes in at least the following:
+    @Path("/task")
+    @POST
+    @Authorization("basicAuth")
+    public Task createTask(Task task) {
+        return this.delegate.createTask(task);
+    }
 
-`JavaServerSdkGenerator.java`
+    @Path("/task/{taskId}")
+    @GET
+    @Authorization("basicAuth")
+    public Task getTask(@PathParam("taskId") String taskId) {
+        return this.delegate.getTask(taskId);
+    }
 
-Templates in this folder:
-
-`src/main/resources/java-server-sdk`
-
-Once modified, you can run this:
-
-```
-mvn package
-```
-
-In your generator project. A single jar file will be produced in `target`. You can now use that with [OpenAPI Generator](https://openapi-generator.tech):
-
-For mac/linux:
-```
-java -cp /path/to/openapi-generator-cli.jar:/path/to/your.jar org.openapitools.codegen.OpenAPIGenerator generate -g java-server-sdk -i /path/to/openapi.yaml -o ./test
-```
-(Do not forget to replace the values `/path/to/openapi-generator-cli.jar`, `/path/to/your.jar` and `/path/to/openapi.yaml` in the previous command)
-
-For Windows users, you will need to use `;` instead of `:` in the classpath, e.g.
-```
-java -cp /path/to/openapi-generator-cli.jar;/path/to/your.jar org.openapitools.codegen.OpenAPIGenerator generate -g java-server-sdk -i /path/to/openapi.yaml -o ./test
+    @Path("/task")
+    @GET
+    @Authorization("basicAuth")
+    public Tasks getTasks(@QueryParam("filter") String filter) {
+        return this.delegate.getTasks(filter);
+    }
+}
 ```
 
-Now your templates are available to the client generator and you can write output values
+### Service interface
 
-## But how do I modify this?
-The `JavaServerSdkGenerator.java` has comments in it--lots of comments.  There is no good substitute
-for reading the code more, though.  See how the `JavaServerSdkGenerator` implements `CodegenConfig`.
-That class has the signature of all values that can be overridden.
+```java
+public interface TaskApiService {
+    Task createTask(Task var1);
 
-You can also step through JavaServerSdkGenerator.java in a debugger.  Just debug the JUnit
-test in DebugCodegenLauncher.  That runs the command line tool and lets you inspect what the code is doing.  
+    Task getTask(String var1);
 
-For the templates themselves, you have a number of values available to you for generation.
-You can execute the `java` command from above while passing different debug flags to show
-the object you have available during client generation:
-
+    Tasks getTasks(String var1);
+}
 ```
-# The following additional debug options are available for all codegen targets:
-# -DdebugOpenAPI prints the OpenAPI Specification as interpreted by the codegen
-# -DdebugModels prints models passed to the template engine
-# -DdebugOperations prints operations passed to the template engine
-# -DdebugSupportingFiles prints additional data passed to the template engine
-
-java -DdebugOperations -cp /path/to/openapi-generator-cli.jar:/path/to/your.jar org.openapitools.codegen.OpenAPIGenerator generate -g java-server-sdk -i /path/to/openapi.yaml -o ./test
-```
-
-Will, for example, output the debug info for operations.
-You can use this info in the `api.mustache` file.

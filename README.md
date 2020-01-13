@@ -1,4 +1,4 @@
-# Social Collaboration Apis
+# Social Collaboration APIs
 This repository contains OpenAPI specifications for collaboration services including
 user management, task management and messaging.
 

@@ -2,11 +2,11 @@ package social.api.mock.test.auth;
 
 import org.junit.Test;
 import social.api.message.model.Message;
-import social.api.mock.test.AbstractApiIntegrationTest;
+import social.api.mock.test.AbstractApiTest;
 
 import static org.junit.Assert.fail;
 
-public class MessageApiAuthenticationIT extends AbstractApiIntegrationTest {
+public class MessageApiAuthenticationIT extends AbstractApiTest {
     private final static Message MESSAGE = new Message()
             .messageBody("Message")
             .sender(JOHN_NAME)

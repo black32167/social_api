@@ -11,7 +11,7 @@ import social.api.user.model.UserCredentials;
 import java.util.Arrays;
 import java.util.List;
 
-public abstract class AbstractApiIntegrationTest {
+public abstract class AbstractApiTest {
     private static final String DEFAULT_BASE_PATH = "http://127.0.0.1:8081/v1";
     private static final String TASK_BASE_PATH = System.getProperty("taskApiPath", DEFAULT_BASE_PATH);
     private static final String MESSAGE_BASE_PATH = System.getProperty("messageApiPath", DEFAULT_BASE_PATH);

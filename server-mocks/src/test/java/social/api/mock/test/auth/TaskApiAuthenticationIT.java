@@ -1,12 +1,12 @@
 package social.api.mock.test.auth;
 
 import org.junit.Test;
-import social.api.mock.test.AbstractApiIntegrationTest;
+import social.api.mock.test.AbstractApiTest;
 import social.api.task.model.Task;
 
 import static org.junit.Assert.fail;
 
-public class TaskApiAuthenticationIT extends AbstractApiIntegrationTest {
+public class TaskApiAuthenticationIT extends AbstractApiTest {
     private final static Task TASK = new Task()
             .creator(JOHN_NAME)
             .assignee(JANE_NAME);

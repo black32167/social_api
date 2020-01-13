@@ -9,7 +9,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * Tests integration between 'Task' and 'Message' services.
  */
-public class TaskMessageIntegrationTest extends AbstractApiIntegrationTest {
+public class TaskMessageIT extends AbstractApiTest {
     /**
      * Tests notification is sent to assignee when message is created.
      */

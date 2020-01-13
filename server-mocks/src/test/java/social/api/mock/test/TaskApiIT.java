@@ -9,7 +9,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-public class TaskApiIntegrationTest extends AbstractApiIntegrationTest {
+public class TaskApiIT extends AbstractApiTest {
     private static final Task task1 = new Task()
             .title("Find the cure")
             .creator(JOHN_NAME)

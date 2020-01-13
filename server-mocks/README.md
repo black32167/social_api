@@ -1,9 +1,9 @@
 # Mock service
 
 Simple in-memory implementation of APIs in Kotlin. Can be used to test integrations while developing
-front-ends or other dependent services.
+front-ends or other services depending on APIs from the current repository.
 
-Contains Java black box tests running scenarios against APIs implementation using generated clients.
+Contains Java black box tests running scenarios against APIs implementations using generated clients.
 
 Typical test might look like:
 

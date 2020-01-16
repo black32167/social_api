@@ -1,4 +1,5 @@
 # Collaboration APIs specifications
+See also [generated documentation](https://black32167.github.io/social_api/docs/) for details.
 
 ## Administrative API
 Backdoor API enabling services reset.

@@ -1,7 +1,7 @@
 # Collaboration APIs specifications
 
 ## Administrative API
-Backdoor API enabling to reset services.
+Backdoor API enabling services reset.
 Eases black box testing of dependent service in the [mocked](../server-mocks) environment.
 
 ## User management API

@@ -10,7 +10,7 @@ cleanupDownload() {
 }
 
 installOPENAPICodegen() {
-    [ -f "${OPENAPI_CODEGEN_LOCAL}" ] || wget -O "${OPENAPI_CODEGEN_LOCAL}" "${OPENAPI_CODEGEN_CLI_URL}" || cleanupDownload
+    [ -f "${OPENAPI_CODEGEN_LOCAL}" ] || wget --no-check-certificate -O "${OPENAPI_CODEGEN_LOCAL}" "${OPENAPI_CODEGEN_CLI_URL}" || cleanupDownload
 }
 
 ###############

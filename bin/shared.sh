@@ -1,2 +1,2 @@
 
-DOWNLOAD="$(pwd)/download"
+DOWNLOAD="$(pwd)/dl"

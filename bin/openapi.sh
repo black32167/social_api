@@ -11,6 +11,7 @@ cleanupDownload() {
 
 installOPENAPICodegen() {
     mkdir -p "${DOWNLOAD}"
+    ls -l
     [ -f "${OPENAPI_CODEGEN_LOCAL}" ] || wget -O "${OPENAPI_CODEGEN_LOCAL}" "${OPENAPI_CODEGEN_CLI_URL}" || cleanupDownload
 }
 

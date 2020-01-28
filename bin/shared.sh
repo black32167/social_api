@@ -1,2 +1,3 @@
 
-DOWNLOAD="$(pwd)/dl"
+DOWNLOAD="$(pwd)/download"
+mkdir -p "${DOWNLOAD}"

@@ -28,6 +28,8 @@ OPENAPI_CODEGEN_LOCAL="${DOWNLOAD}/openapi-generator-cli-${OPENAPI_CODEGEN_VRSIO
 ### Execution flow
 ###############
 
+set -x
 installOPENAPICodegen
 
 java -DdebugOperations -DdebugModels -cp "${DOWNLOAD}/*" org.openapitools.codegen.OpenAPIGenerator "$@"
+set +x

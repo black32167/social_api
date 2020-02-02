@@ -15,11 +15,10 @@ class MocksServer(val baseUri: String) {
     fun start(): MocksServer {
         check(jaxRsServer == null) { "Server is already run" }
 
-        jaxRsServer = JaxRsServer(
-                baseUri,
-                createApiResources(),
-                arrayOf(AuthFilter(UserApi(social.api.user.ApiClient().setBasePath(baseUri)))))
-        .start()
+        jaxRsServer = JaxRsServer(baseUri)
+                .instances(createApiResources())
+                .instances(arrayOf(AuthFilter(UserApi(social.api.user.ApiClient().setBasePath(baseUri)))))
+                .start()
         return this
     }
 

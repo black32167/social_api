@@ -1,4 +1,4 @@
-package social.api.mock
+package social.api.server
 
 import org.glassfish.grizzly.http.server.HttpServer
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory

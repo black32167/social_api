@@ -4,7 +4,6 @@ PROTO_SUBDIR="src/main/proto"
 
 GEN_TARGET="$(pwd)/generated-api"
 SCRIPT_DIR="${BASH_SOURCE%/*}"
-SERVER_MOCKS_MODULE="server-mocks"
 LOG="generate.log"
 
 die() {
@@ -71,19 +70,14 @@ generateApi() {
     done
 }
 
-buildApiGenerators() {
-    echo "Building API generators..."
-    local SERVER_SDK_GENERATOR_MODULE="$(pwd)/generators/java-server-sdk"
-    local SERVER_SDK_CODEGEN_JAR="${HOME}/.m2/repository/org/openapitools/java-server-sdk-openapi-generator/1.0.0/java-server-sdk-openapi-generator-1.0.0.jar"
+buildTools() {
+    echo "Building Tools..."
 
-    # [ -f "${SERVER_SDK_CODEGEN_JAR}" ] || \
-    (cd "${SERVER_SDK_GENERATOR_MODULE}" && mvn clean install) >> "${LOG}" 2>&1 || die "Error API artifacts generators"
-
-    cp "${SERVER_SDK_CODEGEN_JAR}" "${DOWNLOAD}"
+    mvn clean install -f ./tools >> "${LOG}" 2>&1 || die "Error building tools"
 }
 
 generateApis() {
-    buildApiGenerators
+    buildGenerators
     rm -rf "${GEN_TARGET}"
     for api in ${APIS[@]}; do
       generateApi "${api}"
@@ -97,9 +91,15 @@ generateDocs() {
     cp -rv "${GEN_TARGET}/html/." "${DOCUMENTATION_OUT}/"
 }
 
-buildMockServer() {
-    (cd "${SERVER_MOCKS_MODULE}" && mvn clean install -DskipTests) >> "${LOG}" 2>&1 || die "Error generating mock server"
-    echo "Mock server is built"
+buildGenerators() {
+    local SERVER_SDK_CODEGEN_JAR="${HOME}/.m2/repository/org/openapitools/java-server-sdk-openapi-generator/1.0.0/java-server-sdk-openapi-generator-1.0.0.jar"
+
+    mvn clean install -DskipTests \
+      -f ./generators >> "${LOG}" 2>&1 || die "Error generating mock server"
+
+    cp "${SERVER_SDK_CODEGEN_JAR}" "${DOWNLOAD}"
+
+    echo "Custom API generators are built"
 }
 
 SCRIPT_DIR=${BASH_SOURCE%/*}
@@ -113,22 +113,22 @@ rm -rf "${LOG}"
 CMD="${1}"
 case "${CMD}" in
     gens)
-        buildApiGenerators
-        ;;
+      buildGenerators
+      ;;
+    tools)
+      buildTools
+      ;;
     apis)
-        generateApis
-        ;;
+      generateApis
+      ;;
     docs)
-        generateDocs
-        ;;
-    mock-server)
-        buildMockServer
-        ;;
+      generateDocs
+      ;;
     all)
-        generateApis
-        buildMockServer
-        ;;
+      generateApis
+      buildTools
+      ;;
     *)
-        echo "Usage:"
-        echo "${0} {gens|apis|docs|mock-server|all}"
+      echo "Usage:"
+      echo "${0} {gens|apis|docs|tools|all}"
 esac

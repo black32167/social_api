@@ -5,6 +5,7 @@ import social.api.mock.control.AdminApiServiceMock
 import social.api.mock.message.MessageApiServiceMock
 import social.api.mock.task.TaskApiServiceMock
 import social.api.mock.user.UserApiServiceMock
+import social.api.server.JaxRsServer
 import social.api.user.client.UserApi
 import java.io.IOException
 

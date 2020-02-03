@@ -6,7 +6,7 @@
 
     <packaging>pom</packaging>
 
-    <groupId>org.social.integration</groupId>
+    <groupId>social.api.generator</groupId>
     <artifactId>api-generators</artifactId>
     <version>1.0-SNAPSHOT</version>
 

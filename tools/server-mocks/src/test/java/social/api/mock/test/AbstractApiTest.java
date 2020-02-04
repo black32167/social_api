@@ -13,6 +13,7 @@ import java.util.List;
 
 public abstract class AbstractApiTest {
     private static final String DEFAULT_BASE_PATH = "http://127.0.0.1:8081/v1";
+    private static final String USER_BASE_PATH = System.getProperty("userApiPath", DEFAULT_BASE_PATH);
     private static final String TASK_BASE_PATH = System.getProperty("taskApiPath", DEFAULT_BASE_PATH);
     private static final String MESSAGE_BASE_PATH = System.getProperty("messageApiPath", DEFAULT_BASE_PATH);
     private static final String TASK_ADMIN_BASE_PATH = System.getProperty("taskAdminApiPath", DEFAULT_BASE_PATH);
@@ -24,7 +25,7 @@ public abstract class AbstractApiTest {
 
     protected final MessageApi messageApi = new MessageApi(new social.api.message.ApiClient().setBasePath(MESSAGE_BASE_PATH));
     protected final TaskApi taskApi = new TaskApi(new social.api.task.ApiClient().setBasePath(TASK_BASE_PATH));
-    protected final UserApi userApi = new UserApi(new social.api.user.ApiClient().setBasePath(TASK_BASE_PATH));
+    protected final UserApi userApi = new UserApi(new social.api.user.ApiClient().setBasePath(USER_BASE_PATH));
     private List<AdminApi> adminApis = Arrays.asList(new AdminApi(new social.api.admin.ApiClient().setBasePath(TASK_ADMIN_BASE_PATH)));
 
     @Before
@@ -44,7 +45,6 @@ public abstract class AbstractApiTest {
     protected void cleanAuthentication() {
         setupAuthentication(null, null);
     }
-
 
     protected void createUser(String userName, String userPassword) throws Exception {
         User createdUser = userApi.createUser(new User().name(userName));

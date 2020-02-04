@@ -18,6 +18,14 @@
         <jackson.version>2.10.1</jackson.version>
     </properties>
 
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub Collaboration APIs Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/black32167/social_api</url>
+        </repository>
+    </distributionManagement>
+
     <build>
         <pluginManagement>
             <plugins>

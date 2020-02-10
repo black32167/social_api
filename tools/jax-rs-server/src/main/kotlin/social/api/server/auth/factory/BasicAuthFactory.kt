@@ -6,7 +6,7 @@ import java.nio.charset.Charset
 import java.util.*
 
 class BasicAuthFactory : AuthFactory {
-    private val BASIC_PREFIX = "Basic"
+    private val BASIC_PREFIX = "Basic "
     override fun desearialize(token: String): ApiAuth? {
         if(!token.startsWith(BASIC_PREFIX)) {
             return null

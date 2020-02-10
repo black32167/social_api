@@ -6,6 +6,7 @@ import org.glassfish.jersey.jackson.JacksonFeature
 import org.glassfish.jersey.logging.LoggingFeature
 import org.glassfish.jersey.server.ResourceConfig
 import org.slf4j.bridge.SLF4JBridgeHandler
+import social.api.server.auth.ApiAuthFilter
 import java.io.IOException
 import java.net.URI
 import java.util.logging.ConsoleHandler
@@ -18,7 +19,7 @@ class JaxRsServer(val baseUri: String) {
             SLF4JBridgeHandler.removeHandlersForRootLogger();
             SLF4JBridgeHandler.install();
             val l = Logger.getLogger("")
-            l.setLevel(Level.FINEST);
+            l.setLevel(Level.parse(System.getProperty("api.server.log.level", "FINE")));
             val ch = ConsoleHandler()
             ch.level = Level.ALL
             l.addHandler(ch)
@@ -40,13 +41,15 @@ class JaxRsServer(val baseUri: String) {
     fun start(): JaxRsServer {
         check(httpServer == null) { "Server is already run" }
         val config = ResourceConfig()
-        config.register(JacksonFeature::class.java)
+                .register(JacksonFeature::class.java)
         instances.forEach { i->config.register(i) }
-        config.registerClasses(classes)
-        config.register(LoggingFeature(Logger.getLogger(LoggingFeature.DEFAULT_LOGGER_NAME),
-                Level.FINE, LoggingFeature.Verbosity.PAYLOAD_ANY, 10000))
-
-      //  providers.forEach { config.register(it) }
+        config
+                .registerClasses(classes)
+                .register(
+                    LoggingFeature(Logger.getLogger(LoggingFeature.DEFAULT_LOGGER_NAME),
+                    Level.FINE, LoggingFeature.Verbosity.PAYLOAD_ANY, 10000))
+                .register(WebApplicationExceptionMapper())
+                .register(ApiAuthFilter())
 
         httpServer = GrizzlyHttpServerFactory.createHttpServer(URI.create(baseUri), config, false)
         httpServer!!.start()

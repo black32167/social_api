@@ -2,7 +2,6 @@ package social.api.server
 
 import org.glassfish.grizzly.http.server.HttpServer
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory
-import org.glassfish.jersey.jackson.JacksonFeature
 import org.glassfish.jersey.logging.LoggingFeature
 import org.glassfish.jersey.server.ResourceConfig
 import org.slf4j.bridge.SLF4JBridgeHandler
@@ -28,6 +27,7 @@ class JaxRsServer(val baseUri: String) {
     private var httpServer: HttpServer? = null
     private val instances = mutableListOf<Any>()
     private val classes = mutableSetOf<Class<*>>()
+    private val properties = mutableMapOf<String, Any>()
 
     fun classes(_classes: Array<Class<Any>>): JaxRsServer {
         classes.addAll(_classes)
@@ -37,11 +37,14 @@ class JaxRsServer(val baseUri: String) {
         instances.addAll(_instances)
         return this
     }
+    fun property(key: String, value:String): JaxRsServer {
+        properties[key] = value
+        return this
+    }
     @Throws(IOException::class)
     fun start(): JaxRsServer {
         check(httpServer == null) { "Server is already run" }
         val config = ResourceConfig()
-                .register(JacksonFeature::class.java)
         instances.forEach { i->config.register(i) }
         config
                 .registerClasses(classes)
@@ -50,6 +53,8 @@ class JaxRsServer(val baseUri: String) {
                     Level.FINE, LoggingFeature.Verbosity.PAYLOAD_ANY, 10000))
                 .register(WebApplicationExceptionMapper())
                 .register(ApiAuthFilter())
+
+        properties.forEach { (k, v) -> config.property(k, v) }
 
         httpServer = GrizzlyHttpServerFactory.createHttpServer(URI.create(baseUri), config, false)
         httpServer!!.start()

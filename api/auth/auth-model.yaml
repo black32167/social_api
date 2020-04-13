@@ -1,0 +1,13 @@
+schemas:
+  UserAuthenticationRequest:
+    type: object
+    properties:
+      userName:
+        type: string
+      password:
+        type: String
+  UserAuthenticationResponse:
+    type: object
+    properties:
+      token:
+        type: string

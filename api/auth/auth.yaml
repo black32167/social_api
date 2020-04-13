@@ -1,0 +1,35 @@
+openapi: 3.0.0
+info:
+  title: Authentication API
+  version: 0.0.1
+  description: User authentication API.
+  contact:
+    name: Anonymous
+    email: none@nowhere
+    url: https://black32167.github.io/social_api
+  license:
+    name: MIT license
+    url: https://opensource.org/licenses/MIT
+servers:
+  - url: http://auth.example.com/v1
+    description: User authentication server
+paths:
+  /auth/user:
+    post:
+      operationId: authenticateUser
+      summary: Authenticates user
+      tags:
+        - auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: 'auth-model.yaml#/schemas/UserAuthenticationRequest'
+      responses:
+        '200':    # status code
+          description: authentication token
+          content:
+            application/json:
+              schema:
+                $ref: 'auth-model.yaml#/schemas/UserAuthenticationResponse'

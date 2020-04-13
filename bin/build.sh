@@ -105,7 +105,7 @@ buildGenerators() {
 SCRIPT_DIR=${BASH_SOURCE%/*}
 . ${SCRIPT_DIR}/shared.sh
 : ${GENERATORS:="java" "java-server-sdk"}
-: ${APIS:="task" "admin" "user" "message"}
+: ${APIS:="task" "admin" "user" "message" "auth"}
 DOCUMENTATION_OUT="docs"
 
 rm -rf "${LOG}"

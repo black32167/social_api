@@ -51,6 +51,16 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
+                <groupId>org.glassfish.hk2</groupId>
+                <artifactId>hk2</artifactId>
+                <version>2.5.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.glassfish.jersey.inject</groupId>
+                <artifactId>jersey-hk2</artifactId>
+                <version>${jersey.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-annotations</artifactId>
                 <version>${jackson.version}</version>
@@ -154,12 +164,6 @@
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
                 <version>${junit.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.glassfish.hk2</groupId>
-                <artifactId>hk2</artifactId>
-                <version>2.5.0</version>
             </dependency>
 
             <dependency>

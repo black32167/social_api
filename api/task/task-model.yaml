@@ -25,6 +25,10 @@ schemas:
         type: string
       assignee:
         type: string
+      updated:
+        type: string
+      httpUrl:
+        type: string
     example:
       title: Build the spaceship
       creator: John

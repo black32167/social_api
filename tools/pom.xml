@@ -13,7 +13,7 @@
         <junit.version>4.12</junit.version>
         <social.api.version>0.0.1</social.api.version>
         <jersey.version>2.29</jersey.version>
-        <kotlin.version>1.3.61</kotlin.version>
+        <kotlin.version>1.6.0</kotlin.version>
         <slf4j.version>1.7.28</slf4j.version>
         <jackson.version>2.12.7.1</jackson.version>
     </properties>
